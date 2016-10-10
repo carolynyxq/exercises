@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <title>算目标点数</title>
+  <link rel="stylesheet" href="css/base.css"/>
+</head>
+<body>
+  <div class="box">
+    <form name="calc">
+      <h3>输入要计算的四个数字：</h3>
+      <input class="number" type="text" name="number1" id="number1" autofocus/>
+      <input class="number" type="text" name="number2" id="number2"/>
+      <input class="number" type="text" name="number3" id="number3"/>
+      <input class="number" type="text" name="number4" id="number4"/>
+      <h3>输入要计算的目标结果：</h3>
+      <input class="number" type="text" name="targetCalc" id="targetCalc" value="24" readonly/><br />
+      <input class="btn" type="button" value="计算" style="background:#E67E22;" onclick="myMain();"/>
+      <input class="btn" type="reset" value="清除结果" onclick="clearValue();"/>
+      <h3>结果：</h3>
+      <div id="result"></div>
+    </form>
+  </div>
+  <script src="js/jquery-1.11.1.js"></script>
+  <script src="js/base.js"></script>
+</body>
+</html>
