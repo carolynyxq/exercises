@@ -1,0 +1,121 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>计算器</title>
+  <style>
+    .box {
+      width: 260px;
+      margin: 10px auto;
+      padding: 10px;
+      background: #D9E4F1;
+    }
+
+    table{
+      width:100%;
+    }
+    td{
+      text-align: center;
+    }
+    input{
+      width:40px;
+      height:30px;
+    }
+    #val{
+      width:238px;
+      text-align: right;
+      padding-right: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <table id="calc">
+    <tr>
+      <td colspan="5">
+        <input type="text" name="val" id="val" value="0"/>
+      </td>
+    </tr>
+  </table>
+
+</div>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+  var calcBtns = ["C", 0, 1, 2, 3, "+", 4, 5, 6, 7, "-", 8, 9, ".", "=", "*", "/", "sin", "cos", "tan"];//计算器上的功能按钮
+  //创建计算器上的功能按钮
+  window.onload=function createCalc(){
+    for(var i=0;i<calcBtns.length;i+=5){
+      var tr=document.createElement("tr");
+      $("#calc").append(tr);
+      for(var j=i;j<i+5;j++){
+        var td=document.createElement("td");
+        td.innerHTML='<input type="button" value="'+calcBtns[j]+'" />';
+        $(tr).append(td);
+      }
+    }
+    $("input[type='button']").bind("click",function(){
+      calc(this);
+    });
+    //响应的计算功能
+    var previousValue=0;//用于保存先前的数值
+    var op="";
+    var flagNewInput=true;//是否清空原有输入
+    function calc(obj){
+      switch($(obj).val()){
+        case 'sin':
+          $("#val").val(Math.sin($("#val").val()));
+          break;
+        case 'cos':
+          $("#val").val(Math.cos($("#val").val()));
+          break;
+        case 'tan':
+          $("#val").val(Math.tan($("#val").val()));
+          break;
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+          flagNewInput=true;
+            if(op!=""&&$("#val").val()!=""){
+              $("#val").val(eval(previousValue+op+$("#val").val()));
+              op=$(obj).val();
+            }else{
+              op=$(obj).val();
+            }
+          break;
+        case '=':
+          flagNewInput=true;
+          if(op!=""&&$("#val").val()!=""){
+            $("#val").val(eval(previousValue+op+$("#val").val()));
+            op="";
+            previousValue=0;
+          }
+          break;
+        case 'C':
+          flagNewInput=true;
+          $("#val").val(0);
+          op="";
+          previousValue=0;
+          break;
+        case '.':
+            if($("#val").val().indexOf(".")!=-1){
+              break;
+            }
+        default:
+            if(flagNewInput){
+              flagNewInput=false;
+              previousValue=$("#val").val();
+              $("#val").val(0);
+            }
+            if($("#val").val()!=0){
+              $("#val").get()[0].value+=obj.value;
+            }else if(obj.value!=0){
+              $("#val").val(obj.value);
+            }
+          break;
+      }
+    }
+  };
+</script>
+</body>
+</html>
